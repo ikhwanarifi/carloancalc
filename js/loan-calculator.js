@@ -55,15 +55,30 @@ function enableForm() {
     option.textContent = car.model;
     carModel.appendChild(option);
   });
-}
 
-//
-//
-//
-//
-//
-//
-//
+  // When model changes, populate variants
+  carModel.addEventListener('change', function () {
+    const selectedModel = this.value;
+    const selectedCar = carList.find((car) => car.model === selectedModel);
+
+    // Clear previous variants
+    carVariant.innerHTML = '<option value="">Choose Variant</option>';
+
+    if (selectedCar) {
+      selectedCar.variants.forEach((variant) => {
+        const option = document.createElement('option');
+        option.value = variant.variant;
+        option.textContent = `${
+          variant.variant
+        } - RM ${variant.price.toLocaleString()}`;
+        carVariant.appendChild(option);
+      });
+      carVariant.disabled = false;
+    } else {
+      carVariant.disabled = true;
+    }
+  });
+}
 
 carModel.addEventListener('change', handleChange);
 carVariant.addEventListener('change', handleChange);
@@ -75,6 +90,14 @@ function handleChange(event) {
   console.log(`${event.target.id} changed to: ${event.target.value}`);
   // Add your custom logic here
 }
+
+//
+//
+//
+//
+//
+//
+//
 
 document.addEventListener('DOMContentLoaded', function () {
   document
