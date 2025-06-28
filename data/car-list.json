@@ -1,0 +1,96 @@
+[
+  {
+    "model": "Mazda 2",
+    "variants": [
+      { "variant": "1.5G Sdn High", "price": 108000 },
+      { "variant": "1.5G Hb High", "price": 108000 },
+      { "variant": "1.5L Skyactiv-G SDN (High)", "price": 103670 },
+      { "variant": "1.5L Skyactiv-G HB (High)", "price": 103670 }
+    ]
+  },
+  {
+    "model": "Mazda 3",
+    "variants": [
+      { "variant": "2.0L Sdn High", "price": 156059 },
+      { "variant": "2.0L Sdn High Plus", "price": 166059 },
+      { "variant": "2.0L Lb High Plus", "price": 166059 },
+
+      { "variant": "2.0L Lb High Plus (Ignite Edition)", "price": 175059 }
+    ]
+  },
+  {
+    "model": "Mazda 6",
+    "variants": [
+      { "variant": "2.0L Sdn Skyactiv-G (Mid)", "price": 180359 },
+      { "variant": "2.5L Sdn High Plus", "price": 240848 },
+      { "variant": "2.5L Touring High", "price": 166059 }
+    ]
+  },
+  {
+    "model": "Mazda CX-3",
+    "variants": [
+      { "variant": "1.5G 2WD Plus", "price": 115000 },
+      { "variant": "2.0G 2WD Plus", "price": 125000 },
+      { "variant": "1.5L Skyactiv-G", "price": 107920 },
+      { "variant": "2.0L High Skyactiv-G", "price": 131559 }
+    ]
+  },
+  {
+    "model": "Mazda CX-30",
+    "variants": [
+      { "variant": "2.0L", "price": 131409 },
+      { "variant": "2.0L High", "price": 139409 },
+      { "variant": "2.0L High+", "price": 149409 },
+      { "variant": "2.0L High+ Premium", "price": 159409 }
+    ]
+  },
+  {
+    "model": "Mazda CX-5",
+    "variants": [
+      { "variant": "2.0G 2WD Mid", "price": 143300 },
+      { "variant": "2.0G 2WD High", "price": 160300 },
+      { "variant": "2.5G 2WD High", "price": 173400 },
+      { "variant": "2.5G AWD High Turbo", "price": 187200 },
+      { "variant": "2.2D 2WD High", "price": 179000 }
+    ]
+  },
+  {
+    "model": "Mazda CX-8",
+    "variants": [
+      { "variant": "2.5L 2WD Mid Skyactiv-G", "price": 185360.4 },
+      { "variant": "2.5L 2WD High Skyactiv-G", "price": 191360.4 },
+      { "variant": "2.5L 2WD High Plus Skyactiv-G", "price": 206360.4 },
+      { "variant": "2.5L AWD High Plus Turbo Skyactiv-G", "price": 221360.4 },
+      { "variant": "2.2L 2WD High Plus Skyactiv-D", "price": 213122.8 }
+    ]
+  },
+  {
+    "model": "Mazda CX-9",
+    "variants": [
+      { "variant": "2.5L 2WD Mid Skyactiv-G", "price": 328810.4 },
+      { "variant": "2.5L AWD Skyactiv-G", "price": 345810.4 }
+    ]
+  },
+  {
+    "model": "Mazda BT-50",
+    "variants": [
+      { "variant": "1.9L 6MT SC", "price": 92729.2 },
+      { "variant": "1.9L Mid 6MT", "price": 104979.2 },
+      { "variant": "1.9L Mid 6AT", "price": 111379.2 },
+      { "variant": "1.9L High 6AT", "price": 213979.2 },
+      { "variant": "3.0L High Plus 6AT", "price": 142918.4 }
+    ]
+  },
+  {
+    "model": "Mazda MX-5",
+    "variants": [
+      { "variant": "35th Anniversary Edition", "price": 315000 },
+      { "variant": "MX-5 RF (AT)", "price": 295000 },
+      { "variant": "MX-5 RF (MT)", "price": 293000 }
+    ]
+  },
+  {
+    "model": "Mazda MX-30",
+    "variants": [{ "variant": "EV High e-Skyactiv", "price": 198000 }]
+  }
+]
