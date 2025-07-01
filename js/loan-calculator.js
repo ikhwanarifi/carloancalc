@@ -1,149 +1,180 @@
+// Global variables
 let carList = null;
+let carModel, carVariant, downPayment, interestRate, loanDuration;
 
+// Number formatting options
+const currencyOptions = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
+
+// Wait for DOM to fully load before running scripts
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('hi');
+  console.log('DOM ready');
+
+  // Cache DOM elements once
+  carModel = document.getElementById('carModel');
+  carVariant = document.getElementById('carVariant');
+  downPayment = document.getElementById('downPayment');
+  interestRate = document.getElementById('interestRate');
+  loanDuration = document.getElementById('loanDuration');
+
   disableForm();
-  loadCarList(); // Begin loading data
+  attachEventListeners();
+  loadCarList();
 });
 
+/**
+ * Disable all form input elements
+ */
+function disableForm() {
+  [carModel, carVariant, downPayment, interestRate, loanDuration].forEach(
+    (el) => (el.disabled = true)
+  );
+}
+
+/**
+ * Enable specific form input elements after data is loaded
+ */
+function enableForm() {
+  [carModel, downPayment, interestRate, loanDuration].forEach(
+    (el) => (el.disabled = false)
+  );
+}
+
+/**
+ * Attach change event listeners to form inputs
+ */
+function attachEventListeners() {
+  [carModel, carVariant, downPayment, interestRate, loanDuration].forEach((el) =>
+    el.addEventListener('change', handleChange)
+  );
+  carModel.addEventListener('change', handleCarModelChange);
+}
+
+/**
+ * Fetch car list JSON, store in carList, then populate form options
+ */
 async function loadCarList() {
   try {
     const response = await fetch('./data/car-list.json');
-    if (!response.ok) throw new Error('Failed to load JSON');
+    if (!response.ok) throw new Error('Failed to load car data JSON');
 
-    const carData = await response.json();
-    carList = carData;
+    carList = await response.json();
 
-    // You can call another function here if needed
     enableForm();
-    console.log('bye');
+    populateCarModels();
+    console.log('Car data loaded successfully');
   } catch (error) {
     console.error('Error loading car data:', error);
   }
 }
 
-function disableForm() {
-  const carModel = document.getElementById('carModel');
-  const carVariant = document.getElementById('carVariant');
-  const downPayment = document.getElementById('downPayment');
-  const interestRate = document.getElementById('interestRate');
-  const loanDuration = document.getElementById('loanDuration');
-
-  carModel.disabled = true;
-  carVariant.disabled = true;
-  downPayment.disabled = true;
-  interestRate.disabled = true;
-  loanDuration.disabled = true;
-}
-
-function enableForm() {
-  const carModel = document.getElementById('carModel');
-  const carVariant = document.getElementById('carVariant');
-  const downPayment = document.getElementById('downPayment');
-  const interestRate = document.getElementById('interestRate');
-  const loanDuration = document.getElementById('loanDuration');
-
-  carModel.disabled = false;
-  carVariant.disabled = false;
-  downPayment.disabled = false;
-  interestRate.disabled = false;
-  loanDuration.disabled = false;
-
+/**
+ * Populate car model options based on loaded carList
+ */
+function populateCarModels() {
   carList.forEach((car) => {
     const option = document.createElement('option');
     option.value = car.model;
     option.textContent = car.model;
     carModel.appendChild(option);
   });
-
-  // When model changes, populate variants
-  carModel.addEventListener('change', function () {
-    const selectedModel = this.value;
-    const selectedCar = carList.find((car) => car.model === selectedModel);
-
-    // Clear previous variants
-    carVariant.innerHTML = '<option value="">Choose Variant</option>';
-
-    if (selectedCar) {
-      selectedCar.variants.forEach((variant) => {
-        const option = document.createElement('option');
-        option.value = variant.variant;
-        option.textContent = `${
-          variant.variant
-        } - RM ${variant.price.toLocaleString()}`;
-        carVariant.appendChild(option);
-      });
-      carVariant.disabled = false;
-    } else {
-      carVariant.disabled = true;
-    }
-  });
 }
 
-carModel.addEventListener('change', handleChange);
-carVariant.addEventListener('change', handleChange);
-downPayment.addEventListener('change', handleChange);
-interestRate.addEventListener('change', handleChange);
-loanDuration.addEventListener('change', handleChange);
+/**
+ * Handle when car model selection changes:
+ * populate corresponding variant options
+ */
+function handleCarModelChange() {
+  const selectedModel = carModel.value;
+  const selectedCar = carList.find((car) => car.model === selectedModel);
 
+  carVariant.innerHTML = '<option value="">Choose Variant</option>';
+
+  if (selectedCar) {
+    selectedCar.variants.forEach((variant) => {
+      const option = document.createElement('option');
+      option.value = variant.variant;
+      option.textContent = `${variant.variant} - RM ${formatCurrency(
+        variant.price
+      )}`;
+      carVariant.appendChild(option);
+    });
+    carVariant.disabled = false;
+  } else {
+    carVariant.disabled = true;
+  }
+
+  handleChange({ target: carModel });
+}
+
+/**
+ * Main handler for form input changes
+ */
 function handleChange(event) {
   console.log(`${event.target.id} changed to: ${event.target.value}`);
-  // Add your custom logic here
+
+  const price = getSelectedVariantPrice();
+  const downPay = parseFloat(downPayment.value) || 0;
+  const interRate = parseFloat(interestRate.value) || 0;
+  const duration = parseFloat(loanDuration.value) || 0;
+
+  if (!price || interRate === 0 || duration === 0) {
+    updateLoanOutputs('-', '-', '-', '-');
+    return;
+  }
+
+  const loanAmount = price - downPay;
+  if (loanAmount <= 0) {
+    updateLoanOutputs('-', '-', '-', '-');
+    return;
+  }
+
+  const totalInterest = loanAmount * (interRate / 100) * (duration / 12);
+  const totalPayment = loanAmount + totalInterest;
+  const monthlyPayment = totalPayment / duration;
+
+  updateLoanOutputs(monthlyPayment, loanAmount, totalInterest, totalPayment);
 }
 
-//
-//
-//
-//
-//
-//
-//
+/**
+ * Update loan result outputs
+ */
+function updateLoanOutputs(monthly, principal, interest, total) {
+  setOutput('monthlyPayment', monthly);
+  setOutput('totalLoan', principal);
+  setOutput('totalInterest', interest);
+  setOutput('totalCost', total);
+}
 
-document.addEventListener('DOMContentLoaded', function () {
-  document
-    .getElementById('calculateLoan')
-    .addEventListener('click', calculateLoan);
+/**
+ * Helper to set formatted currency or placeholder
+ */
+function setOutput(id, value) {
+  document.getElementById(id).textContent =
+    value === '-'
+      ? '-'
+      : 'RM' + formatCurrency(Number(value));
+}
 
-  // Calculate on any input change
-  document
-    .querySelectorAll('.loan-calculator input, .loan-calculator select')
-    .forEach((input) => {
-      input.addEventListener('change', calculateLoan);
-      input.addEventListener('keyup', calculateLoan);
-    });
+/**
+ * Format number as Malaysian currency with commas and 2 decimal places
+ */
+function formatCurrency(value) {
+  return value.toLocaleString('en-MY', currencyOptions);
+}
 
-  // Initial calculation
-  calculateLoan();
+/**
+ * Get price of selected car variant
+ */
+function getSelectedVariantPrice() {
+  const selectedModel = carModel.value;
+  const selectedVariant = carVariant.value;
+  if (!selectedModel || !selectedVariant) return null;
 
-  function calculateLoan() {
-    const price =
-      parseFloat(document.getElementById('vehiclePrice').value) || 0;
-    const downPayment =
-      parseFloat(document.getElementById('downPayment').value) || 0;
-    const loanTerm = parseInt(document.getElementById('loanTerm').value) || 48;
-    const interestRate =
-      parseFloat(document.getElementById('interestRate').value) || 0;
+  const selectedCar = carList.find((car) => car.model === selectedModel);
+  if (!selectedCar) return null;
 
-    const principal = price - downPayment;
-    const monthlyRate = interestRate / 100 / 12;
-    const payments = loanTerm;
-
-    // Calculate monthly payment
-    const monthlyPayment =
-      (principal * (monthlyRate * Math.pow(1 + monthlyRate, payments))) /
-      (Math.pow(1 + monthlyRate, payments) - 1);
-
-    const totalPayment = monthlyPayment * payments;
-    const totalInterest = totalPayment - principal;
-
-    // Update the UI
-    document.getElementById('monthlyPayment').textContent =
-      '$' + monthlyPayment.toFixed(2);
-    document.getElementById('totalLoan').textContent =
-      '$' + principal.toFixed(2);
-    document.getElementById('totalInterest').textContent =
-      '$' + totalInterest.toFixed(2);
-    document.getElementById('totalCost').textContent =
-      '$' + (principal + totalInterest).toFixed(2);
-  }
-});
+  const variantObj = selectedCar.variants.find(
+    (variant) => variant.variant === selectedVariant
+  );
+  return variantObj ? variantObj.price : null;
+}

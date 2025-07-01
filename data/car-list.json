@@ -1,6 +1,7 @@
 [
   {
     "model": "Mazda 2",
+    "image": "mazda-2",
     "variants": [
       { "variant": "1.5G Sdn High", "price": 108000 },
       { "variant": "1.5G Hb High", "price": 108000 },
@@ -10,6 +11,7 @@
   },
   {
     "model": "Mazda 3",
+    "image": "mazda-3",
     "variants": [
       { "variant": "2.0L Sdn High", "price": 156059 },
       { "variant": "2.0L Sdn High Plus", "price": 166059 },
@@ -20,6 +22,7 @@
   },
   {
     "model": "Mazda 6",
+    "image": "mazda-6",
     "variants": [
       { "variant": "2.0L Sdn Skyactiv-G (Mid)", "price": 180359 },
       { "variant": "2.5L Sdn High Plus", "price": 240848 },
@@ -28,6 +31,7 @@
   },
   {
     "model": "Mazda CX-3",
+    "image": "mazda-cx-3",
     "variants": [
       { "variant": "1.5G 2WD Plus", "price": 115000 },
       { "variant": "2.0G 2WD Plus", "price": 125000 },
@@ -37,6 +41,7 @@
   },
   {
     "model": "Mazda CX-30",
+    "image": "mazda-cx-30",
     "variants": [
       { "variant": "2.0L", "price": 131409 },
       { "variant": "2.0L High", "price": 139409 },
@@ -46,6 +51,7 @@
   },
   {
     "model": "Mazda CX-5",
+    "image": "mazda-cx-5",
     "variants": [
       { "variant": "2.0G 2WD Mid", "price": 143300 },
       { "variant": "2.0G 2WD High", "price": 160300 },
@@ -56,6 +62,7 @@
   },
   {
     "model": "Mazda CX-8",
+    "image": "mazda-cx-8",
     "variants": [
       { "variant": "2.5L 2WD Mid Skyactiv-G", "price": 185360.4 },
       { "variant": "2.5L 2WD High Skyactiv-G", "price": 191360.4 },
@@ -66,6 +73,7 @@
   },
   {
     "model": "Mazda CX-9",
+    "image": "mazda-cx-9",
     "variants": [
       { "variant": "2.5L 2WD Mid Skyactiv-G", "price": 328810.4 },
       { "variant": "2.5L AWD Skyactiv-G", "price": 345810.4 }
@@ -73,6 +81,7 @@
   },
   {
     "model": "Mazda BT-50",
+    "image": "mazda-bt-50",
     "variants": [
       { "variant": "1.9L 6MT SC", "price": 92729.2 },
       { "variant": "1.9L Mid 6MT", "price": 104979.2 },
@@ -83,6 +92,7 @@
   },
   {
     "model": "Mazda MX-5",
+    "image": "mazda-mx-5",
     "variants": [
       { "variant": "35th Anniversary Edition", "price": 315000 },
       { "variant": "MX-5 RF (AT)", "price": 295000 },
@@ -91,6 +101,7 @@
   },
   {
     "model": "Mazda MX-30",
+    "image": "mazda-mx-30",
     "variants": [{ "variant": "EV High e-Skyactiv", "price": 198000 }]
   }
 ]
